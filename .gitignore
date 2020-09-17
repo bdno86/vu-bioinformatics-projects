@@ -127,3 +127,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# MISC
+queries/*.fasta
+db/db.txt
