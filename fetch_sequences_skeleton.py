@@ -32,7 +32,6 @@ def fetch_one_fasta(uniprot_id):
 
 def check_query_folder(query_folder):
     if not os.path.exists(query_folder):
-        print("q: " + query_folder)
         print("Query folder does not exist. "
               "Please make sure that the specified folder exists before you run this script.")
         return False
