@@ -9,6 +9,8 @@ import numpy as np
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
+from shapely.geometry import LineString
+
 
 
 def retrieve_go_terms(protein_ids):
@@ -183,7 +185,7 @@ def assign_homology(go_dict, pairs, threshold1, threshold2):
     return go_homology
 
 
-def write_results(filename, c):
+def write_results(filename, go_homology):
     """
     Writes the pairs, similarity and, score to the output file.
     :param filename:
@@ -239,15 +241,40 @@ def plot_evolution_scores(homology_results):
     # Plot two horizontal lines to help you decide suitable threshods
     # as described in the assignment
 
+
+    #plt.axhline(y=5, color='r', linestyle='-')
+    #plt.axhline(y=95, color='b', linestyle='-')
+
+    #first_line = LineString(np.column_stack((unique_sorted, norm_accumulated)))
+    #second_line = LineString(np.column_stack((unique_sorted, np.repeat(5, len(score)))))
+    #intersection = first_line.intersection(second_line)
+    #plt.plot(*intersection.xy, 'o')
+
+
+    #non_zero = sorted_scores[sorted_scores != 0]
+    print(np.percentile(sorted_scores, 95))
+    print(np.percentile(sorted_scores, 90))
+
+    #th1 = (1-np.percentile(sorted_scores, 95))*100
+    #th2 = (1-np.percentile(sorted_scores, 90))*100
+    th1 = np.percentile(sorted_scores, 90)
+    th2 = np.percentile(sorted_scores, 95)
+
+    plt.axhline(y=90, color='r', linestyle='-')
+    plt.axhline(y=95, color='b', linestyle='-')
+    plt.axvline(x=0.054, color='r')
+    plt.axvline(x=0.111)
+    plt.plot(th1, 90, 'ro')
+    plt.plot(th2, 95, 'bo')
+    plt.annotate(f"threshold 1: {th1}",xy=(th1, 90), xytext=(0.20 , 65), arrowprops=dict(arrowstyle="->", connectionstyle="angle3,angleA=0,angleB=-90"))
+    plt.annotate(f"threshold 2: {th2}",xy=(th2, 95), xytext=(0.30 , 75), arrowprops=dict(arrowstyle="->", connectionstyle="angle3,angleA=0,angleB=-90"))
+
     ########################
     ### END CODING HERE ####
     ########################
 
     plt.axis([0, 1 , 0, 100])
     plt.savefig('find_threshold.png')
-
-
-
 
     # print(np.unique(sorted_scores))
     # print(len(np.unique(sorted_scores)))
@@ -281,8 +308,6 @@ def main():
 
     # Compute and prints the scores and the similarity string of each protein pair.
     pairs = generate_all_possible_protein_pairs(protein_ids)
-    print(len(protein_ids))
-    print(len(pairs))
     go_homology = assign_homology(go_dict, pairs, threshold_1, threshold_2)
     write_results(output_file, go_homology)
 

@@ -19,6 +19,11 @@ e_value < 0.002
 
 Go-terms for a single protein can be retrieved by accessing `http://www.uniprot.org/uniprot/?query=accession:<PROTID>&format=tab&columns=id,organism-id,go-id,pathway` and by replacing `<PROTID>` with the protein ID.
 
+Command for running the script of this assignment:
+```sh
+python3 classify_go.py -uniprot SCOP_selections.txt -threshold1 0.111 -threshold2 0.054 -output_file results/go_output.txt
+```
+
 ## Question 3
 
 Convergent evolution...
@@ -75,9 +80,17 @@ $$s(A, A)=\frac{\left |A \cap A  \right |}{\left |A \cup A  \right |} = \frac{\l
 
 ## Question 7
 
-To determine the number of unique combinations between two equal sets of proteins, the following formula applies.(n*(n-1))/2The total is divided by two because identical pairs would be included assuming that any combination (as opposed to a permutation) is seen as equal (eg: (a,b)=(b,a)).In the case of n being 200, the total number of unique combinations with same-protein pairs being excluded is:(200*199)/2 = 19900So. a total of 19990 pairs would be scored for.
+To clear up some ambiguity in the question (as discussed with Laura), in this assignment the number of combinations ((a,b) = (b,a)) need to be provided as opposed to the number of permutations ((a,b) ≠ (b,a)).
+
+To determine the number of unique combinations (without replacement) between two equal sets of proteins, the following formula applies: $$\frac{n(n-1)}{2}$$
+
+The total is divided by two because identical pairs would be included otherwise, assuming that any combination (as opposed to a permutation) is seen as equal (eg: (a,b)=(b,a)).
+
+In the case of n being 200, the total number of unique combinations with same-protein pairs being excluded is:(200*199)/2 = 19900
+
+So a total of **19990 pairs** would be scored for.
 
 # Q
 
-1. Combinaties of permutaties?
-2. bereik similarity inclusive of **exclusive** range
+1. **Combinaties** of permutaties? Voor vraag: combinaties, voor code: permutaties.
+2. bereik similarity **inclusive** of exclusive range
