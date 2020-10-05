@@ -131,3 +131,4 @@ dmypy.json
 # MISC
 queries/*.fasta
 db/db.txt
+GOterms.tsv
