@@ -134,7 +134,7 @@ def check_similarity_for_protein_pair(score, threshold1, threshold2):
     # between inclusive or exclusive?
     if threshold1 > score:
         output = 'different'
-    elif threshold1 >= score >= threshold2:
+    elif threshold1 <= score <= threshold2:
         output = 'ambiguous'
     else:
         output = 'similar'
@@ -252,8 +252,8 @@ def plot_evolution_scores(homology_results):
 
 
     #non_zero = sorted_scores[sorted_scores != 0]
-    print(np.percentile(sorted_scores, 95))
     print(np.percentile(sorted_scores, 90))
+    print(np.percentile(sorted_scores, 95))
 
     #th1 = (1-np.percentile(sorted_scores, 95))*100
     #th2 = (1-np.percentile(sorted_scores, 90))*100
