@@ -19,14 +19,50 @@ The performance of tools that find homologous of proteins can be assessed in the
 
 **A) There is a trivial method that yields a FPR of zero. Please state such a method below. [5]**
 
+A trivial way to achieve an FPR of zero is by selecting a classifier threshold so that none of the instances will be classified as positive at all. When everything is classified as negative, nothing can be either true or false positive.
+
+Given:
+$$FPR=\frac{FP}{FP+TN}$$ 
+Then:
+$$given \quad TN>0 \quad and \quad FP=0:\\ \space \\
+FPR=\frac{FP}{FP+TN}=\frac{0}{0+TN}=\frac{0}{TN}=0
+$$
+
 **B) There is a trivial method that yields a TPR of one. Please describe it. [5]**
+
+A trivial way to achieve an TPR of one is by selecting a classifier threshold so that all of the instances will be classified as positive. When everything is classified as positive, nothing will be classified as negative and therefor there can't be any true or false negatives.
+
+Given:
+$$TPR=\frac{TP}{TP+FN}$$ 
+Then:
+$$given \quad TP>1 \quad and \quad FN=0: \\ \space \\
+TPR=\frac{TP}{TP+FN}=\frac{TP}{TP+0}=\frac{TP}{TP}=1
+$$
 
 ## Question 3 - 10 pts
 Methods usually provide a prediction in the form of a numeric value. We can use this value together with a varying threshold, to assign positive and negative predictions. In this way we can calculate the TPR and the FPR. A resulting ROC plot visualises the trade-off that exists in minimizing the FPR while maximizing the TPR.
 
 **A) What would the ROC-plot of a method that works randomly look like? [5]**
 
+A method or model that classifies any instance given to it by random will generate a plot that tends toward a diagonal line. With a large enough sample size the line will be a completely straight diagonal line.
+
+The AUC (Area Under Curve) is equal to 0.5.
+
+An example of a perfectly random method from which a very large number of samples is drawn is shown in the graphic below indicated by C.
+
+
 **B) What would the ROC-plot of a method that perfectly separates the two groups look like? [5]**
+
+A perfect predictor will produce a perfect TPR of 1 and will have no false positives at all, yielding an FPR of 0. For this reason, the plot will be a straight vertical line from (0.0, 0.0) to (0, 1.0) followed by a horizontal line from (0,1.0) to (1.1, 1.0). The AUC is equal to 1.0.
+
+Or simply put: straight up and then all the way to the right.
+
+An example of a perfect method from which a very large number of samples is drawn is shown in the graphic below indicated by A.
+
+![enter image description here](https://www.ahajournals.org/cms/asset/4a1ab89e-38b2-4c50-a4fb-5f64be9f868d/16ff2.jpeg)
+https://www.ahajournals.org/doi/full/10.1161/CIRCULATIONAHA.105.594929
+Zou, K. H., O’Malley, A. J., & Mauri, L. (2007). Receiver-operating characteristic analysis for evaluating diagnostic tests and predictive models. Circulation, 115(5), 654-657.
+
 
 ## Question 4 10 pts
 Finish the skeleton scriptPreview the document to create ROC curves. The ROC curves should indicate the performance of BLAST on the GO database. Use your results from the last two practicals. 
@@ -35,6 +71,7 @@ Finish the skeleton scriptPreview the document to create ROC curves. The ROC cur
 python3 roc_plot_skeleton.py -blast_results BLAST_RESULTS.txt -go_results GO_RESULTS.txt -outpng 
 FILENAME_ROC_PLOT.png
 ```
+DONE
 
 ## Question 5 - 20 pts
 **A) Show the generated ROC plot benchmarking BLAST against GO here. Please indicate all the parameters (e.g. e-value threshold, database used, GO score cut-off) used to generate this plot.**
